@@ -1,0 +1,74 @@
+<page-header-wrapper>
+  <app-breadcrumb *ngIf="isBreadcrumb" [listBreadCrumb]="breadcrumbs"></app-breadcrumb>
+  <div nz-row class="mb-0">
+    <nz-card>
+      <div class="list__table" *ngIf="total > 0">
+        <nz-table #rowSelectionTable nzBordered [nzData]="lstData" [nzFrontPagination]="false" [nzScroll]="{ x: SCROLL_TABLE.SCROLL_X}" [nzNoResult]="">
+            <thead>
+                <tr class="ant-header-customize">
+                    <th nzWidth="50px" class="text-center">
+                        {{ 'list.table.stt' | i18n }}
+                    </th>
+                    <th nzWidth="150px">
+                        {{ 'Mã yêu cầu' | i18n }}
+                    </th>
+                    <th nzWidth="150px">
+                        {{ 'Tên yêu cầu' | i18n }}
+                    </th>
+                    <th nzWidth="150px">
+                        {{ 'Số tiền' | i18n }}
+                    </th>
+                    <th nzWidth="150px">
+                        {{ 'Loại khoản tiền' | i18n }}
+                    </th>
+                    <th nzWidth="150px">
+                      {{ 'Thời gian' | i18n }}
+                    </th>
+                    <th nzWidth="150px">
+                      {{ 'Trạng thái' | i18n }}
+                    </th>
+                    <th nzWidth="100px">
+                        {{ 'common.list.table.hanh-dong' | i18n }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of lstData; let idx = index">
+                    <td class="text-center">{{(request.page * request.size) + idx + 1}}</td>
+
+                    <td [nz-tooltip]="data.maYc" class="max-width-200">{{data.maYc}}</td>
+                    <td [nz-tooltip]="data.tenKhoanTien" class="max-width-200">{{data.tenKhoanTien}}</td>
+                    <td [nz-tooltip]="data.soTien" class="max-width-200">{{data.soTien}}</td>
+                    <td [nz-tooltip]="data.type" class="max-width-200">{{data.type}}</td>
+                    <td [nz-tooltip]="data.thoiGian" class="max-width-200">{{data.thoiGian}}</td>
+                    <td *ngIf="data.status == 2" class="max-width-200 q-status q-failed">{{'Không hợp lệ' | i18n}}</td>
+                    <td *ngIf="data.status == 1" class="max-width-200 q-status q-success">{{'Hợp lệ' | i18n}}</td>
+                    <td *ngIf="data.status == 0" class="max-width-200 q-status q-new">{{'Mới' | i18n}}</td>
+                    <td class="text-center" *ngIf="data.status == 2 ; then trueBlock ; else falseBlock" >
+
+                    </td>
+                    <ng-template #trueBlock>
+                        <td>
+                            <app-button-icon [disabled] = "true" class="action__margin" [isEdit]="true" [tooltipTitle]="'Chi tiết'" ></app-button-icon>
+                            <app-button-icon [buttonSize]="'small'" [isDelete]="true" [tooltipTitle]="'Xóa yêu cầu'"></app-button-icon>
+                        </td>
+                    </ng-template>
+                    <ng-template #falseBlock>
+                        <td>
+                            <app-button-icon class="action__margin" [isEdit]="true" [tooltipTitle]="'Chi tiết'" (click)="goToEdit(data)"></app-button-icon>
+                            <app-button-icon [buttonSize]="'small'" [isDelete]="true" [tooltipTitle]="'Xóa yêu cầu'"></app-button-icon>
+                        </td>
+                    </ng-template>
+                </tr>
+            </tbody>
+
+        </nz-table>
+        <div nz-row class="list__pagination justify-content-start" *ngIf="total > 0">
+            <div nz-col [nzSpan]="12">
+                <app-paging [itemOfPage]="request.size" [currentPage]="request.page" [totalItems]="total" (changeCurrentPage)="changeCurrentPage($event)" (changeItemPerPage)="changeItemPerPage($event)"></app-paging>
+            </div>
+        </div>
+    </div>
+    </nz-card>
+  </div>
+</page-header-wrapper>

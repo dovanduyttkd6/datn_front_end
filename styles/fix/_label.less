@@ -1,0 +1,41 @@
+.lbl-active {
+  color: #fff;
+  background-color: #2E86C1;
+}
+
+.lbl-inactive {
+  color: #fff;
+  background-color: #A6ACAF;
+}
+
+.ant-form-item-label {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  position: relative;
+}
+
+.ant-form-item-label > label {
+  color: rgba(0, 0, 0, 1);
+
+  &::after {
+    display: none;
+  }
+}
+
+.ant-form-item-required::before {
+  position: absolute;
+  top: 4px;
+  right: -16px;
+}
+
+.ant-form-item-control__textarea {
+  .ant-input-affix-wrapper .ant-input-suffix {
+    top: 16%;
+  }
+}
+
+.ant-form-item-label {
+  margin-top: 5px;
+  line-height: 27px;
+}

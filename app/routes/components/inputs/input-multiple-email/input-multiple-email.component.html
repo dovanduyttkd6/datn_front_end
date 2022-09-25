@@ -1,0 +1,44 @@
+<nz-form-item>
+  <ng-container *ngIf="!hideLabel">
+    <app-label-horizontal
+      [content]="labelContent"
+      [required]="required"
+      [span]="24 - span"
+    ></app-label-horizontal>
+  </ng-container>
+
+  <nz-form-control class="ant-form-item-control__textarea" [nzSpan]="span" [nzErrorTip]="multipleEmailErrorTpl">
+    <nz-input-group [nzSuffix]="inputTextareaClearTpl">
+    <textarea
+      #inputTextareaRef
+      nz-input
+      [attr.disabled]="disabled ? '' : null"
+      [nzAutosize]="{ minRows: minRows, maxRows: maxRows }"
+      [formControl]="ngControl.control"
+      [placeholder]="placeHolder"
+      [class.input-textarea__is-disabled]="disabled"
+      (focus)="onFocus(inputTextareaRef.value)"
+      (blur)="onBlur(inputTextareaRef.value)"
+    ></textarea>
+      <ng-template #inputTextareaClearTpl>
+        <i
+          *ngIf="inputTextareaRef.value && isFocused"
+          nz-icon
+          class="ant-input-clear-icon"
+          nzTheme="fill"
+          nzType="close-circle"
+          (mousedown)="onClear();inputTextareaRef.value = null"
+        ></i>
+      </ng-template>
+      <ng-template #multipleEmailErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('multipleEmail')">
+          {{errorTipInvalid}}
+        </ng-container>
+        <ng-container *ngIf="control.hasError('required')">
+          {{errorTipRequired}}
+        </ng-container>
+      </ng-template>
+    </nz-input-group>
+  </nz-form-control>
+</nz-form-item>
+

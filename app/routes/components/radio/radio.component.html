@@ -1,0 +1,24 @@
+<nz-form-item>
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical *ngIf="!labelHorizontal" [content]="labelContent" [required]="required">
+    </app-label-vertical>
+    <app-label-horizontal *ngIf="labelHorizontal" [content]="labelContent" [required]="required" [span]="24 - span">
+    </app-label-horizontal>
+  </ng-container>
+
+  <nz-form-control class="ant-form-item-control__radio "
+  [ngClass]="isNoborder ? 'no-border' : ''"
+  [nzErrorTip]="errorTip" [nzSpan]="labelHorizontal ? span : null">
+    <nz-radio-group
+      [(ngModel)]="value"
+      [formControl]="ngControl.control"
+      [nzDisabled]="disabled"
+      nzName="radiogroup"
+      (ngModelChange)="handleSelectChange()"
+    >
+      <label *ngFor="let item of data" [nzValue]="item[this.valueField]" nz-radio>
+        {{staticLabelField ? item.name : item.name | i18n}}
+      </label>
+    </nz-radio-group>
+  </nz-form-control>
+</nz-form-item>

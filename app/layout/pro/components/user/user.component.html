@@ -1,0 +1,26 @@
+<div nz-dropdown [nzDropdownMenu]="userMenu" nzPlacement="bottomRight" class="alain-pro__header-item">
+  <div class="user-info__container">
+    <div class="user-info__img">
+      <i nz-icon nzType="user" nzTheme="outline"></i>
+    </div>
+
+    <div class="user-info__description">
+      <div class="user-info__welcome">
+        <span>{{'Xin chào' | i18n}}</span>
+      </div>
+
+      <div class="user-info__name">
+        <span>{{name}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nz-dropdown-menu #userMenu="nzDropdownMenu">
+  <div nz-menu>
+    <div nz-menu-item (click)="logout()">
+      <i nz-icon nzType="logout" class="mr-sm"></i>
+      {{ 'menu.account.logout' | i18n }}
+    </div>
+  </div>
+</nz-dropdown-menu>

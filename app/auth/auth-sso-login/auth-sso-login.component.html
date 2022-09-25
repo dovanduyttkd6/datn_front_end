@@ -1,0 +1,19 @@
+<div class="ui-g" style="padding-top: 100px;">
+    <div class="ui-g-2"></div>
+    <div class="ui-g-8">
+        <div *ngIf="error">
+            <div>
+                <h3 style="color: red"><i class="pi pi-minus-circle"></i> Lỗi xảy ra</h3>
+                <hr/>
+            </div>
+            <div style="text-align: center;">
+                <div class="ui-g">
+                    <h4>{{error}}</h4>
+                </div>
+                <div class="ui-g">
+                    <a href="javascript:void(0)" (click)="redirectToLogin()">Đăng nhập lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

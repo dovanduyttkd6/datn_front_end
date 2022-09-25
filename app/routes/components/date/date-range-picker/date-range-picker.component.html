@@ -1,0 +1,27 @@
+<form nz-form [formGroup]="validateForm">
+<nz-form-item>
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical *ngIf="!labelHorizontal" [content]="labelContent" [required]="required">
+    </app-label-vertical>
+    <app-label-horizontal *ngIf="labelHorizontal" [for]="name" [content]="labelContent" [required]="required">
+    </app-label-horizontal>
+  </ng-container>
+
+  <nz-form-control [nzSpan]="!hideLabel ? (labelHorizontal ? span : 24) : null" [nzErrorTip]="errorTip">
+    <nz-range-picker
+      class="w-100"
+      [nzFormat]="format"
+      formControlName="dateRange"
+      (ngModelChange)="onChangeDateRange($event)"
+    ></nz-range-picker>
+    <ng-template #errorTip let-control>
+      <ng-container *ngIf="control.hasError('required')">
+        {{errorTipRequired}}
+      </ng-container>
+      <ng-container *ngIf="control.hasError('rangeError')">
+        {{errorTipInvalid}}
+      </ng-container>
+    </ng-template>
+  </nz-form-control>
+</nz-form-item>
+</form>

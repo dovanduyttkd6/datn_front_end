@@ -1,0 +1,46 @@
+<div class="modal-confirm">
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    [nzTitle]="modalTitle"
+    nzFooter="nzModalFooter"
+    [nzWidth]="600"
+    (nzOnCancel)="handleCancelModal()"
+    (nzAfterOpen)="openModal()"
+  >
+    <div class="modal-confirm__body">
+      <div class="modal-confirm__contents">
+        <label *ngIf="!hiddenContent">{{content}}</label>
+        <br>
+        <br>
+        <label class="font-bold">{{description}}</label>
+      </div>
+    </div>
+    <div *nzModalFooter class="d-flex justify-content-center">
+      <ng-container *ngIf="!hiddenBtnCancel">
+        <app-button-cancel
+          [isIcon]="false"
+          [text]="textButtonCancel"
+          [popConfirm]="false"
+          (clickCancel)="handleCancelModal()"
+        ></app-button-cancel>
+      </ng-container>
+      <ng-container *ngIf="isDelete">
+        <app-button-delete [isIcon]="false" (clickDelete)="handleDelete()"></app-button-delete>
+      </ng-container>
+      <ng-container *ngIf="isConfirm">
+        <app-button-confirm (clickConfirm)="handleConfirm()"></app-button-confirm>
+      </ng-container>
+    </div>
+    <ng-template #modalTitle>
+      <div class="text-left">
+        <span class="p-2 pb-0">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M21.6 0H2.4C1.08 0 0 1.08 0 2.4V24L4.8 19.2H21.6C22.92 19.2 24 18.12 24 16.8V2.4C24 1.08 22.92 0 21.6 0ZM12 10.8C11.34 10.8 10.8 10.26 10.8 9.6V4.8C10.8 4.14 11.34 3.6 12 3.6C12.66 3.6 13.2 4.14 13.2 4.8V9.6C13.2 10.26 12.66 10.8 12 10.8ZM13.2 15.6H10.8V13.2H13.2V15.6Z"
+                fill="#AD0025"/>
+            </svg>
+        </span>
+        <label>{{title}}</label></div>
+    </ng-template>
+  </nz-modal>
+</div>

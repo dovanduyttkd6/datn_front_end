@@ -1,0 +1,5 @@
+export const USER_PERMISSION = {
+  APPROVE : 'FF01',
+  EXPERT : 'FF02',
+  NORNAL_USER: 'FF04'
+};

@@ -1,0 +1,51 @@
+<nz-form-item>
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical [content]="labelContent" [required]="required">
+    </app-label-vertical>
+    <!-- <app-label-horizontal *ngIf="labelHorizontal" [content]="labelContent" [required]="required" [span]="24 - span">
+    </app-label-horizontal> -->
+  </ng-container>
+
+  <nz-form-control [nzErrorTip]="ErrorTpl">
+    <nz-input-group [nzSize]="nzSize" [nzSuffix]="inputClearTpl">
+      <input
+        #inputRef
+        maxlength="22"
+        [formControl]="ngControl.control"
+        class="w-100 custome"
+        type="text"
+        nz-input
+        [(ngModel)]="numberFormatResult"
+        [placeholder]="placeHolder"
+        (blur)="onBlur()"
+        (focus)="onFocus()"
+        (ngModelChange)="onModelChange($event)"
+        (keypress)="preventNegative($event)"
+        [attr.disabled]="disabled ? '' : null"
+      />
+
+      <ng-template #ErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('max')">
+          {{labelContent + ' chỉ nhập tối đa 17 ký tự'}}
+        </ng-container>
+        <ng-container *ngIf="control.hasError('maxlength')">
+          {{labelContent + ' chỉ nhập tối đa 17 ký tự'}}
+        </ng-container>
+        <ng-container *ngIf="control.hasError('required')">
+          {{errorTip}}
+        </ng-container>
+      </ng-template>
+    </nz-input-group>
+
+    <ng-template #inputClearTpl>
+      <i
+        *ngIf="inputRef.value && isFocused"
+        nz-icon
+        class="ant-input-clear-icon"
+        nzTheme="fill"
+        nzType="close-circle"
+        (mousedown)="onClear();inputRef.value = null"
+      ></i>
+    </ng-template>
+  </nz-form-control>
+</nz-form-item>

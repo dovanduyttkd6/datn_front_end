@@ -1,0 +1,14 @@
+<page-header-wrapper>
+  <app-breadcrumb *ngIf="isBreadcrumb" [listBreadCrumb]="breadcrumbs"></app-breadcrumb>
+  <div nz-row class="pt-4">
+    <div nz-col nzSpan="12" class="max-width-item">
+        <app-upload-file-attachment [listFiles]="listExcelFile" [isUploadFileModal]="true" [isMultiple]="true" [hideLabel]="false" labelContent="File đính kèm" [required]="true" [validMaxSize]="1" [checkbox]="false" (deleteFile)="eventDeleteFileFromModal($event,1)"
+            (fetchFile)="fetchFile($event,1)" [control]="addForm.get('fileExcel')" [isEdit]="true"></app-upload-file-attachment>
+            <span style="color: #1a0b0c;" *ngIf="listExcelFile.length == 0 && this.isSubmit">{{'common.error.require' | i18n :{key: 'File đính kèm'} }}</span>
+    </div>
+  </div>
+  <div nz-row class="pt-4">
+    <app-button-cancel [isIcon]="false" [popConfirm]="false" (clickCancel)="cancelConfirm()"></app-button-cancel>
+    <app-button-save [isIcon]="false" text="{{'layout.btn.update' | i18n}}" (clickSave)="submitForm()"></app-button-save>
+  </div>
+</page-header-wrapper>

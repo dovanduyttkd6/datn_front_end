@@ -1,0 +1,35 @@
+.ant-form-item-control__radio {
+  background: #FFFFFF;
+  border: 1px solid #8F9294;
+  border-radius: 3px;
+
+  ::ng-deep {
+    .ant-form-item-children {
+      padding: 0 16px;
+    }
+
+    .ant-radio-inner {
+      border-color: #8F9294;
+    }
+
+    .ant-radio:hover {
+      .ant-radio-inner {
+        border-color: rgba(0, 0, 0, 1);
+      }
+    }
+
+    .ant-radio-checked {
+      .ant-radio-inner {
+        border-color: #EE0033;
+      }
+    }
+
+    .ant-radio-inner::after {
+      background-color: #EE0033;;
+    }
+  }
+}
+
+.no-border {
+  border: none;
+}

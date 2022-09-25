@@ -1,0 +1,51 @@
+<nz-form-item>
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical
+      [content]="labelContent"
+      [required]="required"
+    ></app-label-vertical>
+  </ng-container>
+
+  <nz-form-control [nzErrorTip]="combineTpl">
+    <nz-input-group [nzSize]="nzSize" [nzSuffix]="inputClearTpl">
+      <input
+        #inputRef
+        nz-input
+        [no-space]="isNoSpace"
+        [formControl]="ngControl.control"
+        [type]="type"
+        [disabled]="disabled"
+        [placeholder]="placeHolder"
+        (focus)="onFocus(inputRef.value)"
+        (blur)="onBlur(inputRef.value)"
+        [nzAutocomplete]="auto"
+        (input)="onChange($event)"
+      />
+      <ng-template #inputClearTpl>
+        <i
+          *ngIf="inputRef.value && isFocused && !hiddenClear"
+          nz-icon
+          class="ant-input-clear-icon"
+          nzTheme="fill"
+          nzType="close-circle"
+          (mousedown)="onClear();inputRef.value = null"
+        ></i>
+      </ng-template>
+      <nz-autocomplete #auto [compareWith]="compareFun">
+        <nz-auto-option *ngFor="let option of options" [nzValue]="option" [nzLabel]="option.label">
+          {{ option.label }}
+        </nz-auto-option>
+      </nz-autocomplete>
+    </nz-input-group>
+    <ng-template #combineTpl let-control>
+      <ng-container *ngIf="control.hasError('maxlength')">{{labelContent}} chỉ nhập tối đa {{maxLength}} ký tự</ng-container><br>
+      <ng-container *ngIf="control.hasError('required')">{{errorTip}}</ng-container>
+      <ng-container *ngIf="control.hasError('pattern')  && !fieldYear">{{labelContent}} không đúng định dạng</ng-container>
+      <ng-container *ngIf="control.hasError('pattern') && fieldYear">{{labelContent}} chỉ nhập số nguyên từ 1900 đến 3000</ng-container>
+      <ng-container *ngIf="control.hasError('error')">{{labelContent}} phải là duy nhất trong hệ thống</ng-container>
+<!--      <ng-container *ngIf="control.hasError('existedLicense')">{{labelContent}} phải là duy nhất trong hệ thống</ng-container>-->
+      <ng-container *ngIf="control.hasError('existedTaxCode')">{{labelContent}} phải là duy nhất trong hệ thống</ng-container>
+      <ng-container *ngIf="control.hasError('whitespace') && !control.hasError('required')">{{errorTip}}</ng-container>
+    </ng-template>
+  </nz-form-control>
+</nz-form-item>

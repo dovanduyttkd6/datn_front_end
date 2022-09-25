@@ -1,0 +1,49 @@
+<nz-form-item>
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical
+      [content]="labelContent"
+      [required]="required"
+    ></app-label-vertical>
+  </ng-container>
+
+  <nz-form-control [nzErrorTip]="mobileErrorTpl">
+    <nz-input-group [nzSize]="nzSize" [nzSuffix]="inputClearTpl">
+      <input
+        #inputRef
+        nz-input
+        mobile
+        [disabled]="disabled"
+        [formControl]="ngControl.control"
+        [placeholder]="placeHolder"
+        [no-space]="isNoSpace"
+        (focus)="onFocus(inputRef.value)"
+        (blur)="onBlur(inputRef.value)"
+      />
+      <ng-template #inputClearTpl>
+        <i
+          *ngIf="inputRef.value && isFocused"
+          nz-icon
+          class="ant-input-clear-icon"
+          nzTheme="fill"
+          nzType="close-circle"
+          (mousedown)="onClear();inputRef.value = null"
+        ></i>
+      </ng-template>
+      <ng-template #mobileErrorTpl let-control>
+        <!-- <ng-container *ngIf="control.hasError('mobile') && !control.hasError('maxlength')">
+          {{errorTipInvalid}}
+        </ng-container> -->
+        <ng-container *ngIf="control.hasError('pattern') && !control.hasError('maxlength')">
+          {{errorTipInvalid}}
+        </ng-container>
+        <ng-container *ngIf="control.hasError('required')">
+          {{errorTipRequired}}
+        </ng-container>
+        <ng-container *ngIf="control.hasError('maxlength')">
+          {{labelContent}} chỉ nhập tối đa {{maxLength}} ký tự
+        </ng-container>
+      </ng-template>
+    </nz-input-group>
+  </nz-form-control>
+</nz-form-item>
+

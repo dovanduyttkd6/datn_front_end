@@ -1,0 +1,43 @@
+<form nz-form [formGroup]="validateForm">
+<nz-form-item [class.form-item__flex-row]="isFilterList">
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical
+      *ngIf="!labelHorizontal"
+      [content]="labelContent"
+      [required]="required"
+    ></app-label-vertical>
+
+    <app-label-horizontal
+      [span]="24 - span"
+      *ngIf="labelHorizontal"
+      [for]="name"
+      [content]="labelContent"
+      [required]="required"
+      [isFilterList]="isFilterList"
+    ></app-label-horizontal>
+  </ng-container>
+
+  <nz-form-control [nzSpan]="labelHorizontal ? span : null" [nzErrorTip]="errorTip" [ngClass]="classWidth">
+    <nz-date-picker [ngClass]="'date-range-left'"
+      [nzDisabledDate]="disabledStartDate"
+      [nzFormat]="format"
+      [(ngModel)]="startValue"
+      formControlName="startDate"
+      (ngModelChange)="onChangeDate($event)"
+      nzPlaceHolder="Từ ngày"
+      (nzOnOpenChange)="handleStartOpenChange($event)"
+    ></nz-date-picker>
+
+    <nz-date-picker [ngClass]="'date-range-right'"
+      #endDatePicker
+      [nzDisabledDate]="disabledEndDate"
+      [nzFormat]="format"
+      [(ngModel)]="endValue"
+      formControlName="endDate"
+      nzPlaceHolder="Đến ngày"
+      (ngModelChange)="onChangeDate($event)"
+      (nzOnOpenChange)="handleEndOpenChange($event)"
+    ></nz-date-picker>
+  </nz-form-control>
+</nz-form-item>
+</form>

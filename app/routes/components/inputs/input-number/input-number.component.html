@@ -1,0 +1,33 @@
+<nz-form-item>
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical *ngIf="!labelHorizontal" [content]="labelContent" [required]="required"></app-label-vertical>
+    <app-label-horizontal *ngIf="labelHorizontal" [content]="labelContent" [required]="required" [span]="24 - span">
+    </app-label-horizontal>
+  </ng-container>
+
+  <nz-form-control>
+    <nz-input-group [nzSize]="nzSize" [nzSuffix]="inputClearTpl">
+      <input
+        #inputRef
+        nz-input
+        number
+        [formControl]="ngControl.control"
+        [type]="type"
+        [disabled]="disabled"
+        [placeholder]="placeHolder"
+        (focus)="onFocus(inputRef.value)"
+        (blur)="onBlur(inputRef.value)"
+      >
+    </nz-input-group>
+    <ng-template #inputClearTpl>
+      <i
+        *ngIf="inputRef.value && isFocused"
+        nz-icon
+        class="ant-input-clear-icon"
+        nzTheme="fill"
+        nzType="close-circle"
+        (mousedown)="onClear();inputRef.value = null"
+      ></i>
+    </ng-template>
+  </nz-form-control>
+</nz-form-item>

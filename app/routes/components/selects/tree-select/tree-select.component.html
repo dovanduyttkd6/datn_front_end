@@ -1,0 +1,36 @@
+<nz-form-item>
+    <ng-container *ngIf="!hideLabel">
+      <app-label-vertical
+        *ngIf="!labelHorizontal"
+        [content]="labelContent"
+        [required]="required"
+      ></app-label-vertical>
+
+      <app-label-horizontal
+        *ngIf="labelHorizontal"
+        [content]="labelContent"
+        [required]="required"
+        [span]="24 - span"
+        [isVisibilityLabel]="isVisibilityLabel"
+      ></app-label-horizontal>
+    </ng-container>
+
+    <nz-form-control [nzSpan]="labelHorizontal ? span : null" [nzErrorTip]="errorTip">
+      <nz-tree-select
+        [formControl]="ngControl.control"
+        [nzNodes]="data"
+        [nzSize]="nzSize"
+        class="w-100 ant-select"
+        [nzExpandedKeys]="expandKeys"
+        nzAllowClear
+        [nzPlaceHolder]="placeHolder"
+        nzShowSearch
+        nzHideUnMatched
+        [nzDisabled]="disabled"
+        [nzNotFoundContent]="notFoundContent | i18n"
+        [(ngModel)]="value"
+        (ngModelChange)="handleSelectChange();"
+      >
+      </nz-tree-select>
+    </nz-form-control>
+  </nz-form-item>

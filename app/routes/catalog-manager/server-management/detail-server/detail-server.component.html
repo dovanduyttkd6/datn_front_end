@@ -1,0 +1,145 @@
+<app-loading></app-loading>
+<page-header-wrapper>
+    <app-breadcrumb *ngIf="isBreadcrumb" [listBreadCrumb]="breadcrumbs"></app-breadcrumb>
+    <nz-card class="nz-card__form" [nzBordered]="false">
+        <div nz-row>
+            <div nz-col nzSpan="24">
+                <app-title-header-layout>
+                    <span *ngIf="isEdit">{{'breadcrumb.vm-management.edit' | i18n}} {{code}}</span>
+                    <span *ngIf="!isEdit">{{'breadcrumb.vm-management.add' | i18n}}</span>
+                </app-title-header-layout>
+            </div>
+        </div>
+        <form nz-form [formGroup]="addForm">
+            <div class="alt-row__container">
+                <div class="alt-row__item">
+                    <app-input-text formControlName="name" placeHolder="Tên server" #nameRef required="true" [maxLength]="500" labelContent="{{ 'catalog-management.vm.label.nameServer' | i18n }}"></app-input-text>
+                </div>
+                <div class="alt-row__item">
+                    <app-input-text formControlName="systemName" placeHolder="Tên hệ thống" required="true" [maxLength]="500" labelContent="{{ 'catalog-management.vm.label.projectName' | i18n }}"></app-input-text>
+                </div>
+                <div class="alt-row__item">
+                    <app-select [data]="os_ids" [placeHolder]="'--Lựa chọn--'" [openSearchModal]="false" [getObjectValue]="true" [labelHorizontal]="false" formControlName="osId" required="true" (selectChange)="selectChangeService($event)" labelContent="{{'catalog-management.vm.label.os' | i18n}}"></app-select>
+                </div>
+                <div class="alt-row__item">
+                    <app-select [data]="svServiceIds" [placeHolder]="'--Lựa chọn--'" [openSearchModal]="false" [getObjectValue]="true" [labelHorizontal]="false" formControlName="svServiceId" required="true" (selectChange)="selectChangeService($event)" labelContent="{{'catalog-management.vm.label.svService' | i18n}}"></app-select>
+                </div>
+                <div class="alt-row__item">
+                    <app-select [data]="flavorIds" [placeHolder]="'--Lựa chọn--'" [openSearchModal]="false" [getObjectValue]="true" [labelHorizontal]="false" formControlName="flavorId" required="true" (selectChange)="selectChangeService($event)" labelContent="{{'catalog-management.vm.label.flavor' | i18n}}"></app-select>
+                </div>
+                <div class="alt-row__item">
+                    <app-select [data]="storageIds" [placeHolder]="'--Lựa chọn--'" [openSearchModal]="false" [getObjectValue]="true" [labelHorizontal]="false" formControlName="storageId" required="true" (selectChange)="selectChangeService($event)" labelContent="{{'catalog-management.vm.label.storage' | i18n}}"></app-select>
+                </div>
+                <div class="alt-row__item">
+                    <app-select [data]="groupIds" [placeHolder]="'--Lựa chọn--'" [openSearchModal]="false" [getObjectValue]="true" [labelHorizontal]="false" formControlName="svGroupId" required="true" (selectChange)="selectChangeService($event)" labelContent="{{'catalog-management.vm.label.Group' | i18n}}"></app-select>
+                </div>
+                <div class="alt-row__item">
+                    <app-select [data]="networkIds" [placeHolder]="'--Lựa chọn--'" [openSearchModal]="false" [getObjectValue]="true" [labelHorizontal]="false" formControlName="networkId" required="true" (selectChange)="selectChangeService($event)" labelContent="{{'catalog-management.vm.label.Network' | i18n}}"></app-select>
+                </div>
+                <div class="alt-row__item">
+                    <app-input-text formControlName="ip" placeHolder="Địa chỉ IP" required="true" [maxLength]="500" labelContent="{{ 'catalog-management.vm.label.ipAddress' | i18n }}"></app-input-text>
+                </div>
+                <div class="alt-row__item">
+                    <app-input-text  formControlName="notes" placeHolder="ghi chú" required="true" [maxLength]="500" labelContent="{{ 'catalog-management.vm.label.nodes' | i18n }}"></app-input-text>
+                </div>
+            </div>
+        </form>
+
+        <div nz-row>
+            <div nz-col nzSpan="24">
+                <div class="list__container">
+                    <div class="list__head">
+                        <div class="list__head-left">
+                            <!-- <div class="list__head-title">
+                                <span class="head-title">{{ 'catalog-management.server.detail.label.vol' | i18n }}<span style="color: red">*</span></span>
+                                <span class="head-count"><span class="head-count__bracket">(</span><span class="head-count__number">{{ lstDataMapping.length || 0 }}</span
+                ><span class="head-count__bracket">)</span></span>
+                            </div> -->
+                        </div>
+                        <div class="list__head-right">
+                            <div class="list__head-btn">
+                                <app-button-create *ngIf="lstDataMapping.length < 3 && !isEdit" [buttonType]="'link'" (clickCreate)="onCreateMapping() " text="{{ 'layout.btn.createVolume' | i18n }}"></app-button-create>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list__table">
+                    <nz-table #rowSelectionTable nzBordered [nzData]="lstDataMapping" [nzFrontPagination]="false" [nzNoResult]="">
+                        <thead>
+                            <tr class="ant-header-customize">
+                                <th nzWidth="50px" class="text-center">
+                                    {{ 'list.table.stt' | i18n }}
+                                </th>
+                                <th nzWidth="300px" class="text-center">
+                                    {{ 'catalog-management.server.detail.table.vol' | i18n }}<span class="table-required"></span>
+                                </th>
+                                <th nzWidth="350px" class="text-center">
+                                    {{ 'catalog-management.server.detail.table.value' | i18n }}<span class="table-required"></span>
+                                </th>
+                                <th *ngIf="!isEdit" nzWidth="70px" class="text-center">
+                                    {{ 'common.list.table.hanh-dong' | i18n }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody [formGroup]="addForm">
+                            <ng-template *ngIf="!isEdit; else elseblock" ngFor let-idx="index" [ngForOf]="rowSelectionTable.data" >
+                                <tr>
+                                    <td class="text-center max-width-50">{{(request.size * request.page) +idx + 1}}</td>
+                                    <td class="text-center max-width-300">
+                                        <span >{{volume[idx]}}</span>
+                                    </td>
+                                    <td class="max-width-300" style="overflow: unset !important;white-space: pre-line !important;">
+                                        <app-input-text formControlName="{{volume[idx]}}" placeHolder="{{volume[idx]}}" [maxLength]="500"></app-input-text>
+                                    </td>
+
+                                    <td class="max-width-120 text-center">
+                                        <app-button-icon [isDelete]="true" [tooltipTitle]="'Xóa dòng'" (click)="onDeleteMapping(idx)"></app-button-icon>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template #elseblock>
+                                <ng-template ngFor let-idx="index" [ngForOf]="volume" >
+                                    <tr>
+                                        <td class="text-center max-width-50">{{(request.size * request.page) + idx + 1}}</td>
+                                        <td class="text-center max-width-300" >
+                                            <span>{{volume[idx]}}</span>
+                                        </td>
+                                        <td class="max-width-300" style="overflow: unset !important;white-space: pre-line !important;">
+                                            <app-input-text formControlName="{{volume[idx]}}" [maxLength]="500"></app-input-text>
+                                        </td>
+                                        <!-- <td class="max-width-120 text-center">
+                                            <app-button-icon [isDelete]="true" [tooltipTitle]="'Xóa dòng'" (click)="onDeleteMapping(idx)"></app-button-icon>
+                                        </td> -->
+                                    </tr>
+                                </ng-template>
+                            </ng-template>
+                            </tbody>
+                    </nz-table>
+                </div>
+            </div>
+        </div>
+
+    </nz-card>
+    <div nz-row class="nz-card__form-action pt-4">
+        <div *ngIf="!id" nz-col nzSpan="6" class="p-3">
+            <label class="create-another" nz-checkbox [(ngModel)]="continueAdd">
+        {{'component.base.checkbox.create-another' | i18n}}
+      </label>
+        </div>
+        <div nz-col *ngIf="id" nz-col nzSpan="24" class="form-action__wrapper text-center">
+
+            <app-button-cancel [isIcon]="false" [popConfirm]="false" (clickCancel)="cancelConfirm()"></app-button-cancel>
+
+            <app-button-save [isIcon]="false" text="{{'layout.btn.update' | i18n}}" (clickSave)="submitForm(continueAdd)"></app-button-save>
+        </div>
+        <div nz-col *ngIf="!id" nz-col nzSpan="24" class="form-action__wrapper text-center">
+
+            <app-button-cancel [isIcon]="false" [popConfirm]="false" (clickCancel)="cancelConfirm()"></app-button-cancel>
+
+            <app-button-save [isIcon]="false" text="{{'layout.btn.create' | i18n}}" (clickSave)="submitForm(continueAdd)"></app-button-save>
+        </div>
+        <div *ngIf="!id" nz-col nzSpan="6"></div>
+    </div>
+</page-header-wrapper>
+<app-modal-confirm title="{{'layout.btn.confirm' | i18n}}" [isVisible]="isViewConfirmCancel" content="{{ 'common.cancel.confirm.content' | i18n}}" textButtonCancel="{{'layout.btn.reject' | i18n}}" [isConfirm]="true" (clickConfirm)="cancel()" (clickCancel)="onCancelConfirm()"></app-modal-confirm>
+

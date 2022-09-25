@@ -1,0 +1,126 @@
+<app-loading></app-loading>
+<page-header-wrapper>
+    <app-breadcrumb *ngIf="isBreadcrumb" [listBreadCrumb]="breadcrumbs"></app-breadcrumb>
+    <div nz-row>
+        <nz-card nz-row>
+            <nz-collapse [nzBordered]="false">
+                <nz-collapse-panel #searchPanel [nzExpandedIcon]="searchExpandedIcon" [nzActive]="true" [nzHeader]="'common.card.search.title' | i18n">
+                    <ng-template #searchExpandedIcon let-active>{{ active }}
+                        <i nz-icon nzType="caret-right" class="ant-collapse-arrow" [nzRotate]="searchPanel.nzActive ? 90 : -90"></i>
+                    </ng-template>
+                    <form nz-form [formGroup]="searchForm">
+                        <div class="alt-row__container">
+                            <div class="alt-row__item">
+                                <app-input-text #codeRef formControlName="code" placeHolder="Mã yêu cầu" labelContent="{{ 'Mã yêu cầu' | i18n }}"></app-input-text>
+                            </div>
+                            <div class="alt-row__item">
+                                <app-input-text formControlName="title" placeHolder="Tên yêu cầu" labelContent="{{ 'Tên yêu cầu' | i18n }}"></app-input-text>
+                            </div>
+                            <div class="alt-row__item">
+                                <app-input-text formControlName="nameNvYc" placeHolder="Email nhân viên" labelContent="{{ 'Email nhân viên' | i18n }}"></app-input-text>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center btn-search__container">
+                            <app-button-base iconType="search" (clickAction)="nzOnSearch($event)" text="{{ 'layout.btn.search' | i18n }}"></app-button-base>
+                        </div>
+                    </form>
+                </nz-collapse-panel>
+            </nz-collapse>
+        </nz-card>
+    </div>
+    <div nz-row class="mb-0">
+        <nz-card>
+            <div class="list__container">
+                <div class="list__head  list__head--2">
+                    <div class="list__head-left">
+                        <div class="list__head-title">
+                            <span class="head-title">{{ 'Danh sách yêu cầu' | i18n : {total: ""} }}</span>
+                            <span class="head-count"><span class="head-count__bracket">(</span><span class="head-count__number">{{ total }}</span><span class="head-count__bracket">)</span></span>
+                        </div>
+                    </div>
+                    <div class="list__head-right">
+                        <div class="list__head-btn">
+                            <app-button-create [buttonType]="'link'" (clickCreate)="onCreate()"></app-button-create>
+                        </div>
+                    </div>
+                </div>
+              <div class="list__head">
+              </div>
+            </div>
+            <div class="list__table" *ngIf="total > 0">
+                <nz-table #rowSelectionTable nzBordered [nzData]="lstData" [nzFrontPagination]="false" [nzScroll]="{ x: SCROLL_TABLE.SCROLL_X}" [nzNoResult]="">
+                    <thead>
+                        <tr class="ant-header-customize">
+                            <th nzWidth="25px" class="text-center">
+                                <input id="test" #inputEl type="checkbox" (change)="checkedAll(inputEl.checked)" nz-tooltip="Chọn tất cả" [(ngModel)]="checkedChooseAll"/>
+                            </th>
+                            <th nzWidth="50px" class="text-center">
+                                {{ 'list.table.stt' | i18n }}
+                            </th>
+                            <th nzWidth="150px">
+                                {{ 'Mã yêu cầu' | i18n }}
+                            </th>
+                            <th nzWidth="150px">
+                                {{ 'Tên yêu cầu' | i18n }}
+                            </th>
+                            <th nzWidth="150px">
+                                {{ 'Email yêu cầu' | i18n }}
+                            </th>
+                            <th nzWidth="150px">
+                                {{ 'Thời gian' | i18n }}
+                            </th>
+                            <th nzWidth="150px">
+                              {{ 'Trạng thái' | i18n }}
+                          </th>
+                            <th nzWidth="100px">
+                                {{ 'common.list.table.hanh-dong' | i18n }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of lstData; let idx = index">
+                          <td class="text-center" *ngIf="listVM.includes(data.id); then ifBlock else elseblock">
+
+                          </td>
+                            <ng-template #ifBlock>
+                              <td class="text-center">
+                                <input #inputEl type="checkbox" (change)="onChangeChecked(inputEl.checked, data)" checked>
+                              </td>
+                            </ng-template>
+                            <ng-template  #elseblock>
+                              <td class="text-center">
+                                <input #inputEl type="checkbox" (change)="onChangeChecked(inputEl.checked, data)">
+                              </td>
+                            </ng-template>
+                            <td class="text-center">{{(request.page * request.size) + idx + 1}}</td>
+
+                            <td [nz-tooltip]="data.code" class="max-width-200">{{data.code}}</td>
+                            <td [nz-tooltip]="data.title" class="max-width-200">{{data.title}}</td>
+                            <td [nz-tooltip]="data.emailNvYc" class="max-width-200">{{data.emailNvYc}}</td>
+                            <td [nz-tooltip]="data.timeSendYc" class="max-width-200">{{data.timeSendYc}}</td>
+                            <td *ngIf="data.status == 2" class="max-width-200 q-status q-failed">{{'Không hợp lệ' | i18n}}</td>
+                            <td *ngIf="data.status == 1" class="max-width-200 q-status q-success">{{'Hợp lệ' | i18n}}</td>
+                            <td *ngIf="data.status == 0" class="max-width-200 q-status q-new">{{'Mới' | i18n}}</td>
+                            <td>
+                                <app-button-icon class="action__margin" [isEdit]="true" [tooltipTitle]="'Chi tiết'" (click)="goToEdit(data)"></app-button-icon>
+                                <app-button-icon [isDelete]="true" [tooltipTitle]="'Xóa yêu cầu'" (click)="openModalDelete(data)"></app-button-icon>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </nz-table>
+                <div nz-row class="list__pagination justify-content-start" *ngIf="total > 0">
+                    <div nz-col [nzSpan]="12">
+                        <app-paging [itemOfPage]="request.size" [currentPage]="request.page" [totalItems]="total" (changeCurrentPage)="changeCurrentPage($event)" (changeItemPerPage)="changeItemPerPage($event)"></app-paging>
+                    </div>
+                </div>
+            </div>
+            <app-no-result *ngIf="total === 0">
+            </app-no-result>
+        </nz-card>
+    </div>
+</page-header-wrapper>
+<app-modal-confirm title="{{ 'common.delete.title' | i18n :{function: translateService.instant('catalog-management.request.function')} }}" [isVisible]="isVisibleModalDelete" content="{{'common.delete.content' | i18n : {content: translateService.instant('catalog-management.request.function') + ' ' + selectedCode} }}"
+    description="{{'common.delete.confirm' | i18n}}" textButtonCancel="{{'layout.btn.cancel2' | i18n}}" [isDelete]="true" (callBack)="callBackModalDelete($event)" (clickCancel)="onCancelModalDelete()"></app-modal-confirm>
+
+

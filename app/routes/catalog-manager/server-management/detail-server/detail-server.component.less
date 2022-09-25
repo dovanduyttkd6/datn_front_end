@@ -1,0 +1,36 @@
+.alt-row__item {
+    margin-right: 10px;
+}
+.alt-row__container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+  
+    @media only screen and (max-width: 1023px) {
+      flex-flow: column;
+    }
+  }
+  
+  .alt-row__item {
+    width: 25%;
+    max-width: calc(25% - 16px);
+    margin-right: 10px;
+  
+    @media only screen and (min-width: 1024px) and (max-width: 1599px) {
+      width: 50%;
+      max-width: calc(50% - 8px);
+    }
+  
+    @media only screen and (max-width: 1023px) {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    &.margin-top-42px {
+      margin-top: -42px;
+  
+      @media only screen and (max-width: 1023px) {
+        margin-top: unset;
+      }
+    }
+  }

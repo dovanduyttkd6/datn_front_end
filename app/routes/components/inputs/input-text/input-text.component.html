@@ -1,0 +1,57 @@
+<nz-form-item>
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical
+      [content]="labelContent"
+      [required]="required"
+    ></app-label-vertical>
+  </ng-container>
+
+  <nz-form-control [nzErrorTip]="combineTpl">
+    <nz-input-group [nzSize]="nzSize" [nzSuffix]="inputClearTpl">
+      <input
+        [ngClass]="{'special-disabled':(isSpecialDisable && disabled && indexCheck % 2 === 0), 'special-disabled2': (isSpecialDisable && disabled && indexCheck % 2 !== 0)}"
+        #inputRef
+        nz-input
+        trim-space
+        [no-special-character]="isSpecialDisable"
+        [no-space]="isNoSpace"
+        [formControl]="ngControl.control"
+        [type]="type"
+        [disabled]="disabled"
+        [tabindex]="disabled ? '-1' : null"
+        [placeholder]="placeHolder"
+        (focus)="onFocus(inputRef.value)"
+        (blur)="onBlur(inputRef.value)"
+        [maxlength]="maxLength"
+        (change)="onChange.emit($event)"
+        [(ngModel)]="isNgModel ? ngControl : model"
+      />
+      <ng-template #inputClearTpl>
+        <i
+          *ngIf="inputRef.value && isFocused && !hiddenClear"
+          nz-icon
+          class="ant-input-clear-icon"
+          nzTheme="fill"
+          nzType="close-circle"
+          (mousedown)="onClear();inputRef.value = null"
+        ></i>
+      </ng-template>
+    </nz-input-group>
+    <ng-template #combineTpl let-control >
+      <ng-container *ngIf="control.hasError('required')">{{errorTip}}</ng-container>
+      <ng-container *ngIf="control.hasError('pattern')">{{labelContent}} không đúng định
+        dạng
+      </ng-container>
+      <ng-container *ngIf="control.hasError('excelPattern')">Bạn nhập không đúng định dạng quy định, vui lòng sửa lại cho đúng. VD: A5; C9; E8</ng-container>
+      <ng-container *ngIf="control.hasError('unique')">{{labelContent}} đã tồn tại</ng-container>
+
+      <ng-container *ngIf="control.hasError('maxlength') && !control.hasError('pattern')">{{labelContent}} chỉ nhập tối đa {{maxLength}} ký
+        tự
+      </ng-container>
+      <ng-container *ngIf="control.hasError('percent1')">{{labelContent}} chỉ nhập tối đa 3 ký tự tại phần nguyên
+      </ng-container>
+      <ng-container *ngIf="control.hasError('percent2')">{{labelContent}} chỉ nhập tối đa 2 ký tự tại phần thập phân
+      </ng-container>
+    </ng-template>
+  </nz-form-control>
+</nz-form-item>

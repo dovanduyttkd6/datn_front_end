@@ -1,0 +1,174 @@
+.ant-table {
+  color: rgba(0, 0, 0, 1);
+}
+
+.ant-table-tbody > tr {
+  background-color: #ebeef5;
+
+  &:hover {
+    background-color: #FCE5EA !important;
+  }
+}
+
+.ant-table-thead {
+  tr {
+    th {
+      color: rgba(0, 0, 0, 1);
+      text-align: center;
+      background: #FFD5C0 !important;
+      // border-bottom: 2px solid #D1D1D1 !important;
+      border-top: hidden !important;
+      // box-shadow: 0 3px 0 #d1d1d1, inset 0 2px 0 #d1d1d1;
+      padding: 8px !important;
+
+      .ant-table-column-sorter-inner {
+        color: white;
+      }
+
+      &:first-child {
+        border-left: 1px solid #999 !important;
+      }
+
+      &:last-child {
+        border-right: 1px solid #999999 !important;
+      }
+    }
+
+    .ant-table-cell-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.ant-table-tbody {
+  tr {
+    td {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      border-left: 1px solid #fff;
+      border-top: 1px solid #999;
+      border-right: hidden !important;
+      border-bottom: hidden !important;
+      transition: none !important;
+
+      &:first-child {
+        border-left: 1px solid #999 !important;
+      }
+
+      &:last-child {
+        border-right: 1px solid #999 !important;
+      }
+    }
+
+    &:last-child {
+      td {
+        border-bottom: 1px solid #999 !important;
+      }
+    }
+  }
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background: none !important;
+}
+
+.ant-table-tbody > tr {
+  &:nth-child(odd) {
+    background-color: #ffffff;
+  }
+
+  &:nth-child(even) {
+    background-color: #FFF9F7;
+  }
+
+  &:hover {
+    background-color: #FFF5F6 !important;
+  }
+}
+
+.ant-table-thead tr th .ant-table-column-sorter-inner {
+  color: white !important;
+}
+
+.ant-table-placeholder {
+  padding: 16px !important;
+
+  nz-embed-empty {
+    color: rgba(0, 0, 0, 0.65);
+  }
+}
+
+.ant-checkbox-indeterminate .ant-checkbox-inner::after {
+  background-color: #ee0033;
+}
+
+.ant-table-bordered .ant-table-thead > tr > th {
+  border-right: none;
+  border-left: 1px solid #fff;
+  //border-bottom: 1px solid #999 !important;
+  border-top: 1px solid #999 !important;
+  position: relative;
+}
+
+.ant-table-column-sorter-up {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  cursor: pointer;
+  width: 8px;
+  height: 16px !important;
+
+  &.off {
+    background-image: url("../../assets/icons/sort-arrow-up.svg");
+  }
+
+  &.on {
+    background-image: url("../../assets/icons/sort-arrow-up-sorted.svg");
+  }
+
+  svg {
+    display: none;
+  }
+}
+
+.ant-table-column-sorter-down {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  cursor: pointer;
+  width: 8px;
+  height: 17px !important;
+  position: relative;
+  left: 10px;
+  top: -18px;
+
+  &.off {
+    background-image: url("../../assets/icons/sort-arrow-down.svg");
+  }
+
+  &.on {
+    background-image: url("../../assets/icons/sort-arrow-down-sorted.svg");
+  }
+
+  svg {
+    display: none;
+  }
+}
+
+.ant-table-thead > tr > th .ant-table-column-sorter {
+  position: absolute;
+  right: 16px;
+  top: calc(50% - 5px);
+}
+
+.ant-table-thead > tr > th .ant-table-header-column .ant-table-column-sorters {
+  margin-right: 11px;
+}
+
+.ant-table-bordered .ant-table-header > table,
+.ant-table-bordered .ant-table-body > table,
+.ant-table-bordered .ant-table-fixed-left table,
+.ant-table-bordered .ant-table-fixed-right table {
+  border: none;
+}

@@ -1,0 +1,29 @@
+<div nzTooltipTitle="{{ textHover | i18n }}" [nzTooltipPlacement]="TOOLTIP.PLACEMENT_TOP" nz-tooltip>
+  <button
+    class="btn-toggle-column"
+    nz-dropdown
+    nz-button
+    nzType="primary"
+    nzTrigger="click"
+    [nzDropdownMenu]="menu"
+    (nzVisibleChange)="changeVisible($event)"
+    [nzPlacement]="'bottomLeft'"
+  >
+    <app-svg-toggle-columns></app-svg-toggle-columns>
+  </button>
+</div>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div [ngClass]="data.length > 10 ? 'scroll' : ''" nz-menu>
+    <div nz-row *ngFor="let item of data" class="p-2">
+      <label
+        nz-checkbox
+        [disabled]="item.disabled"
+        [nzValue]="item.index"
+        [(nzChecked)]="item.checked"
+        [(ngModel)]="item.checked"
+      >
+        {{ item.name }}
+      </label>
+    </div>
+  </div>
+</nz-dropdown-menu>

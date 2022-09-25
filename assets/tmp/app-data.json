@@ -1,0 +1,82 @@
+{
+  "app": {
+    "name": "Hệ thống quản lý thu chi doanh nghiệp",
+    "year": 2022,
+    "description": "Hệ thống quản lý thu chi doanh nghiệp"
+  },
+  "user": {
+    "name": "Admin",
+    "avatar": "./assets/tmp/img/avatar.jpg",
+    "email": "info@s-erp.vn"
+  },
+  "menu": [{
+    "text": "Main menu",
+    "i18n": "menu.main",
+    "group": true,
+    "hideInBreadcrumb": true,
+    "children": [
+      {
+        "text": "Dashboard",
+        "i18n": "menu.dashboard",
+        "icon": "anticon anticon-dashboard",
+        "link": "/dashboard"
+      },
+      {
+        "text": "Quản trị hệ thống",
+        "i18n": "menu.system",
+        "icon": "anticon anticon-dashboard",
+        "group": true,
+        "children": [
+          {
+            "text": "Nhật ký hệ thống",
+            "i18n": "menu.system.tracking",
+            "icon": "anticon anticon-dashboard",
+            "link": "/system/tracking"
+          }
+        ]
+      },
+      {
+        "text": "StockWarehouse",
+        "i18n": "menu.stock-warehouse",
+        "icon": "anticon anticon-appstore-o",
+        "link": "/catalog/stock-warehouse"
+      },
+      {
+        "text": "StockLocation",
+        "i18n": "menu.stock-location",
+        "icon": "anticon anticon-appstore-o",
+        "link": "/catalog/stock-location"
+      },
+      {
+        "text": "Uomuom",
+        "i18n": "menu.uomuom",
+        "icon": "anticon anticon-appstore-o",
+        "link": "/uomuom"
+      },
+      {
+        "text": "Catalog",
+        "i18n": "menu.catalog",
+        "icon": "anticon anticon-appstore-o",
+        "link": "/catalog"
+      },
+      {
+        "text": "CatalogItem",
+        "i18n": "menu.catalogitem",
+        "icon": "anticon anticon-appstore-o",
+        "link": "/catalog/catalogitem"
+      },
+      {
+        "text": "MeatadataField",
+        "i18n": "menu.metadatafield",
+        "icon": "anticon anticon-appstore-o",
+        "link": "/catalog/metadatafield"
+      },
+      {
+        "text": "MeatadataTemplate",
+        "i18n": "menu.metadatatemplate",
+        "icon": "anticon anticon-appstore-o",
+        "link": "/catalog/metadatatemplate"
+      }
+    ]
+  }]
+}

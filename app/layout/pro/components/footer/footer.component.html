@@ -1,0 +1,21 @@
+<global-footer>
+  <div class="footer__wrapper">
+    <div class="footer__contact">
+      <span>{{'footer.contact' | i18n}}</span>
+    </div>
+
+    <div class="footer__contact-detail">
+      <span>{{'footer.contact.email' | i18n}}</span>
+      <span class="footer__contact-detail-bold">{{'footer.contact.email.detail' | i18n}}</span>
+      <span class="footer__contact-detail-margin">{{'footer.contact.hotline' | i18n}}</span>
+      <span class="footer__contact-detail-bold">{{'footer.contact.hotline.detail' | i18n}}</span>
+    </div>
+
+    <div class="footer__copyright">
+      {{ 'layout.copyright' | i18n }}
+      <i nz-icon nzType="copyright"></i>
+      {{ year }}
+      <span>{{ 'footer.company.name' | i18n }}</span>
+    </div>
+  </div>
+</global-footer>

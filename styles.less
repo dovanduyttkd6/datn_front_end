@@ -1,0 +1,73 @@
+@import '~@delon/theme/styles/index';
+//@import '~@delon/abc/index';
+//@import '~@delon/chart/index';
+//@import '~@delon/theme/styles/layout/fullscreen/index';
+//@import '~ng-zorro-antd/button/style/entry.less';
+//@import '~ng-zorro-antd/style/entry.less';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '../node_modules/ng2-slim-loading-bar/style.css';
+@import 'app/layout/pro/styles/index';
+@import './styles/index';
+@import './styles/theme';
+@import './styles/utilities';
+@import "assets/font/fonts.less";
+
+@primary-color: #007BC3;
+@font-size-base: 16px;
+@alain-pro-header-height: 64px;
+@layout-header-height: 64px;
+@alain-pro-header-color: rgba(256, 256, 256, 0.8);
+@alain-pro-header-hover-color: #fff;
+@alain-pro-sider-menu-width: 300px;
+@alain-pro-sider-menu-img-wh: 14px;
+@layout-sider-background: @alain-pro-light-color;
+@menu-collapsed-width: 60px;
+@table-row-hover-bg: #ccc;
+@font: 'Sarabun';
+
+body {
+  font-family: @font;
+}
+
+.alain-pro__menu-item {
+  border-bottom: solid 1px #ccc7c74a;
+}
+
+.alain-pro__menu-title-text {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.alain-pro__menu-icon {
+  font-size: 14px;
+}
+
+.aside-collapsed .alain-pro__sider-logo h4 {
+  display: none;
+}
+
+.@{table-prefix-cls} {
+  &-thead > tr > th {
+    font-weight: 600;
+  }
+}
+
+.dashboard-total {
+  .ant-card-body {
+    padding: 24px 10px 24px 10px !important;
+  }
+}
+
+.alain-pro__sider-logo.header {
+  display: none;
+}
+
+.aside-collapsed {
+  .alain-pro__sider-logo.sider {
+    display: none;
+  }
+
+  .alain-pro__sider-logo.header {
+    display: block;
+  }
+}

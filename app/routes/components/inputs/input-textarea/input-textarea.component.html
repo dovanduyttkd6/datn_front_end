@@ -1,0 +1,40 @@
+<nz-form-item>
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical *ngIf="!labelHorizontal" [content]="labelContent" [required]="required"></app-label-vertical>
+    <app-label-horizontal *ngIf="labelHorizontal" [content]="labelContent" [required]="required" [span]="24 - span">
+    </app-label-horizontal>
+  </ng-container>
+  <nz-form-control class="ant-form-item-control__textarea" [nzSpan]="labelHorizontal ? span : null" [ngClass]="isFullWidth? 'fullWidth': '' "
+                   [nzErrorTip]="combineTpl">
+    <nz-input-group [nzSuffix]="inputTextareaClearTpl">
+    <textarea
+      #inputTextareaRef
+      nz-input
+      [disabled]="disabled"
+      [formControl]="ngControl.control"
+      [nzAutosize]="{ minRows: minRows, maxRows: maxRows }"
+      [class.input-textarea__is-disabled]="disabled"
+      [placeholder]="isPlaceHolder ? placeHolder : ''"
+      (focus)="onFocus(inputTextareaRef.value)"
+      (blur)="onBlur(inputTextareaRef.value)"
+    ></textarea>
+      <ng-template #inputTextareaClearTpl>
+        <i
+          *ngIf="inputTextareaRef.value && isFocused"
+          nz-icon
+          class="ant-input-clear-icon"
+          nzTheme="fill"
+          nzType="close-circle"
+          (mousedown)="onClear();inputTextareaRef.value = null"
+        ></i>
+      </ng-template>
+    </nz-input-group>
+    <ng-template #combineTpl let-control>
+      <ng-container *ngIf="control.hasError('maxlength') && control.hasError('maxlength')">{{labelContent}} không được vượt quá {{maxLength}} ký tự</ng-container>
+      <ng-container *ngIf="control.hasError('minlength')">MinLength is 6</ng-container>
+      <ng-container *ngIf="control.hasError('required')">{{errorTip}}</ng-container>
+      <ng-container *ngIf="control.hasError('whitespace') && !control.hasError('required')">{{errorTip}}</ng-container>
+      <ng-container *ngIf="control.hasError('pattern') && !control.hasError('required') && !control.hasError('maxlength')">{{labelContent}} chỉ được nhập tiếng việt không dấu và dấu cách</ng-container>
+    </ng-template>
+  </nz-form-control>
+</nz-form-item>

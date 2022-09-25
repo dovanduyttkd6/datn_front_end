@@ -1,0 +1,97 @@
+<nz-form-item>
+  <div nz-row>
+    <div nz-col [nzSpan]="checkbox ? 12 : 24" class="p-1">
+  <ng-container *ngIf="!hideLabel">
+    <app-label-vertical
+      [content]="labelContent"
+      [required]="required"
+    ></app-label-vertical>
+  </ng-container>
+    </div>
+    <div nz-col nzSpan="12" class="p-1" *ngIf="checkbox" style="margin-top: 0.3rem">
+      <nz-checkbox-wrapper (nzOnChange)="onChangeCheckbox()">
+        <div>
+          <label class="create-another" nz-checkbox [(ngModel)]="default" >
+            {{labelCheckbox | i18n}}
+          </label>
+        </div>
+      </nz-checkbox-wrapper>
+
+    </div>
+  </div>
+  <div *ngIf="!default">
+    <div *ngIf="isUploadFileModal" class="modal">
+      <div draggable="true" class="d-flex">
+        <input hidden type="file" [accept]="accept" [multiple]="isMultiple" #uploader (change)="uploadFileTemp($event)"/>
+      </div>
+      <div nz-row>
+        <div tabindex="0" nz-col nzSpan="2" class="text-center icon-uploader" (click)="uploader.click()">
+          <svg style="height: 100%" width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M16.5091 7.13333L20.5673 10.8533C21.0182 11.2667 20.6982 11.9867 20.0582 11.9867H17.4545V22.6667C17.4545 23.4 16.8 24
+              16 24C15.2 24 14.5455 23.4 14.5455 22.6667V12H11.9418C11.2873 12 10.9673 11.28 11.4327 10.8667L15.4909 7.14667C15.7673 6.88
+               16.2327 6.88 16.5091 7.13333ZM29.0909 24H21.8036C21.0182 24 20.3636 23.4 20.3636 22.68C20.3636 21.9467 21.0182 21.36 21.8036
+                21.36H27.6364C28.4364 21.36 29.0909 20.76 29.0909 20.0267V3.98667C29.0909 3.25333 28.4364 2.65333 27.6364 2.65333H4.36364C3.56364
+                 2.65333 2.90909 3.25333 2.90909 3.98667V20.0133C2.90909 20.7467 3.56364 21.3467 4.36364 21.3467H10.1964C10.9818 21.3467 11.6364 21.9467
+                 11.6364 22.6667C11.6364 23.4 10.9818 24 10.1964 24H2.90909C1.30909 24 0 22.8 0 21.3333V2.66667C0 1.2 1.30909 0 2.90909 0H29.0909C30.6909
+                  0 32 1.2 32 2.66667V21.3333C32 22.8 30.6909 24 29.0909 24Z"
+              fill="#AD0025"/>
+          </svg>
+        </div>
+        <div nz-col nzSpan="22" class="inf">
+          <span>Kéo thả file hoặc <span class="event-upload" (click)="uploader.click()">Chọn file</span> để tải lên </span><br>
+          <span class="validator-text">Chỉ cho phép file có dung lượng tối đa {{validMaxSize}}MB</span>
+        </div>
+      </div>
+    </div>
+    <div draggable="true" *ngIf="!isUploadFileModal">
+      <input hidden type="file" [accept]="accept" [multiple]="isMultiple" #uploader (change)="uploadFileTemp($event)"/>
+      <form [formGroup]="fileForm">
+        <div class="input-upload">
+          <app-input-text
+            class="pointer-events"
+            formControlName="file"
+            required="required"
+            labelContent="{{ 'File đính kèm' | i18n }}"
+          >
+          </app-input-text>
+          <button [nzSize]="'large'" (click)="uploader.click()" class="button-upload" nz-button nzType="primary" nzDanger>
+            Tải lên
+          </button>
+        </div>
+        <span class="inf mt-2">Định dạng file: pdf, docx</span><br>
+        <span class="inf">Dung lượng tối đa: 20MB</span>
+        <div *ngIf="listFiles.length > 0" class="lst-file"><strong>Danh sách file đính kèm</strong> <strong>
+          ({{listFiles.length}})</strong></div>
+      </form>
+    </div>
+  </div>
+  <nz-form-control *ngIf="!default" [nzErrorTip]="errorTip">
+    <div class="itemFileDoc" *ngFor="let item of listFiles; let idx = index">
+      <div style="width: 70%">
+        <strong>
+          <app-svg-folder></app-svg-folder>
+        </strong>
+
+        <span class="fileName" nz-tooltip [nzTooltipTitle]="item.name" nzTooltipPlacement="bottom">
+          {{ item.fileName }}
+        </span>
+      </div>
+      <div style="width: 15%" *ngIf="isEdit">
+        <span> {{ item.size  * 1 | number }} KB </span>
+      </div>
+      <div style="width: 7%" *ngIf="isEdit">
+        <app-button-icon
+          [isClose]="true"
+          (click)="handleDeleteFile(item, idx)"
+          [tooltipTitle]="'Xóa file đính kèm'"
+        ></app-button-icon>
+      </div>
+    </div>
+    <div nz-row>
+      <div class="checkbox__message-error" *ngIf="this.required && this.control.hasError('required')">
+        {{ errorTip | i18n }}
+      </div>
+    </div>
+  </nz-form-control>
+</nz-form-item>

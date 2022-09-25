@@ -1,0 +1,12 @@
+<nz-tabset
+  nzType="card"
+  [nzTabPosition]="isVertical ? 'left': 'top'"
+  [(nzSelectedIndex)]="selectedTabIndex"
+>
+  <ng-container *ngFor="let tab of tabs; let i = index">
+    <nz-tab
+      [nzTitle]="tab.name"
+      (nzSelect)="selectChangeTab(tab)"
+    ></nz-tab>
+  </ng-container>
+</nz-tabset>

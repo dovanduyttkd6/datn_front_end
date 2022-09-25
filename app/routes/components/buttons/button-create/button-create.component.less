@@ -1,0 +1,53 @@
+.ant-btn-default {
+  color: rgba(0, 0, 0, 1);
+  background: #FFEEEE;
+  border: 1px solid #CB002B;
+  border-radius: 5px;
+  text-shadow: unset;
+
+  &:hover {
+    background: linear-gradient(180deg, #FFEEEE 0%, #FFFFFF 100%);
+  }
+
+  &:focus {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFEEEE 100%);
+  }
+
+  &:active {
+    background: #FFEEEE;
+  }
+}
+
+svg {
+  position: relative;
+  top: 3px;
+  margin-right: 6px;
+}
+.ant-btn-link{
+  color: #cb002b;
+
+  svg {
+    position: relative;
+    top: 4px;
+    margin-right: 0;
+  }
+  &:hover {
+    color: #f30739;
+    svg path {
+      fill: #f30739;
+    }
+  }
+
+  &:focus {
+    color: #f30739;
+    svg path {
+      fill: #f30739;
+    }
+  }
+
+  &:active {
+    color: #f30739;
+  }
+
+}
+
