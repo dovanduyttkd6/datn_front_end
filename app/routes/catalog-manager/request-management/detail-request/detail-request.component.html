@@ -36,27 +36,26 @@
                 <tr *ngFor="let data of lstData; let idx = index">
                     <td class="text-center">{{(request.page * request.size) + idx + 1}}</td>
 
-                    <td [nz-tooltip]="data.maYc" class="max-width-200">{{data.maYc}}</td>
-                    <td [nz-tooltip]="data.tenKhoanTien" class="max-width-200">{{data.tenKhoanTien}}</td>
-                    <td [nz-tooltip]="data.soTien" class="max-width-200">{{data.soTien}}</td>
-                    <td [nz-tooltip]="data.type" class="max-width-200">{{data.type}}</td>
+                    <td [nz-tooltip]="data.maYc" class="max-width-200 text-center">{{data.maYc}}</td>
+                    <td [nz-tooltip]="data.tenKhoanTien" class="max-width-200 text-center">{{data.tenKhoanTien}}</td>
+                    <td [nz-tooltip]="data.soTien" class="max-width-200 text-center">{{data.soTien}}</td>
+                    <td *ngIf="data.type == 'thu'" class="max-width-200 q-status q-success">{{data.type}}</td>
+                    <td *ngIf="data.type == 'chi'" class="max-width-200 q-status q-failed">{{data.type}}</td>
                     <td [nz-tooltip]="data.thoiGian" class="max-width-200">{{data.thoiGian}}</td>
                     <td *ngIf="data.status == 2" class="max-width-200 q-status q-failed">{{'Không hợp lệ' | i18n}}</td>
                     <td *ngIf="data.status == 1" class="max-width-200 q-status q-success">{{'Hợp lệ' | i18n}}</td>
                     <td *ngIf="data.status == 0" class="max-width-200 q-status q-new">{{'Mới' | i18n}}</td>
-                    <td class="text-center" *ngIf="data.status == 2 ; then trueBlock ; else falseBlock" >
+                    <td class="text-center" *ngIf="data.status == 0 ; then trueBlock ; else falseBlock" >
 
                     </td>
                     <ng-template #trueBlock>
-                        <td>
-                            <app-button-icon [disabled] = "true" class="action__margin" [isEdit]="true" [tooltipTitle]="'Chi tiết'" ></app-button-icon>
-                            <app-button-icon [buttonSize]="'small'" [isDelete]="true" [tooltipTitle]="'Xóa yêu cầu'"></app-button-icon>
+                        <td class="text-center">
+                            <button class="btn-validator" (click)="validatorRequest()">Validate</button>
                         </td>
                     </ng-template>
                     <ng-template #falseBlock>
-                        <td>
-                            <app-button-icon class="action__margin" [isEdit]="true" [tooltipTitle]="'Chi tiết'" (click)="goToEdit(data)"></app-button-icon>
-                            <app-button-icon [buttonSize]="'small'" [isDelete]="true" [tooltipTitle]="'Xóa yêu cầu'"></app-button-icon>
+                        <td class="text-center">
+                            <button class="btn-validator disabled">Validate</button>
                         </td>
                     </ng-template>
                 </tr>

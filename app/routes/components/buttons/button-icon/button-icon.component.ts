@@ -23,6 +23,7 @@ export class ButtonIconComponent implements OnInit {
   @Input() isClose = false;
   @Input() isSyn = false;
   @Input() isTrue = false;
+  @Input() isFalse = false;
   @Input() tooltipTitle = ''
   @Output() clickAction = new EventEmitter();
 

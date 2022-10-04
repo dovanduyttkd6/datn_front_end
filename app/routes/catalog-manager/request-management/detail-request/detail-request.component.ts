@@ -95,4 +95,8 @@ export class DetailRequestComponent implements OnInit {
     this.isBreadcrumb = true;
   }
 
+  validatorRequest() {
+
+  }
+
 }

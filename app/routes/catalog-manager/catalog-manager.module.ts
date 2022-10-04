@@ -9,7 +9,9 @@ import { ListRequestComponent } from './request-management/list-request/list-req
 import { DetailRequestComponent } from './request-management/detail-request/detail-request.component';
 import { ImportExcelManagementComponent } from './import-excel-management/import-excel-management.component';
 import { OfferManagementComponent } from './offer-management/offer-management.component';
-import { UserManagementComponent } from './user-management/user-management.component';
+import { ListUserComponent } from './user-management/list-user/list-user.component';
+import { DetailUserComponent } from './user-management/detail-user/detail-user.component';
+import { ImportExcelRequestManagementComponent } from './import-excel-request-management/import-excel-request-management.component';
 
 
 
@@ -21,7 +23,9 @@ import { UserManagementComponent } from './user-management/user-management.compo
     DetailRequestComponent,
     ImportExcelManagementComponent,
     OfferManagementComponent,
-    UserManagementComponent],
+    ListUserComponent,
+    DetailUserComponent,
+    ImportExcelRequestManagementComponent],
   imports: [
     CommonModule,
     CatalogManagerRoutingModule,

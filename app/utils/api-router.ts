@@ -33,7 +33,8 @@ export const CommonRouter = {
   downloadFileById: `${environment.API_SERVICE}/file/`,
   getColumnConfig: `${environment.API_SERVICE}/common/column/getConfig`,
   saveColumnConfig: `${environment.API_SERVICE}/common/column/saveConfig`,
-  uploadMultiple: `${environment.API_SERVICE}/file/upload`
+  uploadMultiple: `${environment.API_SERVICE}/file/upload`,
+  uploadFileDR: `${environment.API_SERVICE}/file/uploadDR`
 };
 
 export const ServerRouter = {

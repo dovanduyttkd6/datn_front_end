@@ -46,6 +46,18 @@ export class FileManagerService {
       fileData, {observe: 'response'})
   }
 
+  uploadFileDR(files: any, type): Observable<any> {
+    const fileData = new FormData();
+    files.forEach(file => {
+      fileData.append('files', file);
+    });
+
+    return this.httpClient.post<any>(
+      environment.BASE_API_URI.BASE_SERVICE_API +
+      CommonRouter.uploadFileDR + '?type=' + type + '&_allow_anonymous=true',
+      fileData, {observe: 'response'})
+  }
+
   private getFile(id): Observable<any>{
     return this.http.get(
       environment.BASE_API_URI.BASE_SERVICE_API +

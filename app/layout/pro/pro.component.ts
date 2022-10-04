@@ -202,6 +202,14 @@ export class LayoutProComponent implements OnInit, AfterViewInit, OnDestroy {
     })
 
     quanlythuchi.subChild.push({
+      name: 'Quản lý đề xuất',
+      code: 'menu.offer-management',
+      iconClass: 'sidebar-menu-icon icon__catalog',
+      urlRewrite: 'catalog-management/offer',
+      subChild: [],
+    })
+
+    quanlythuchi.subChild.push({
       name: 'Import đề xuất',
       code: 'menu.import-excel-management',
       iconClass: 'sidebar-menu-icon icon__catalog',
@@ -210,10 +218,10 @@ export class LayoutProComponent implements OnInit, AfterViewInit, OnDestroy {
     })
 
     quanlythuchi.subChild.push({
-      name: 'Quản lý đề xuất',
-      code: 'menu.offer-management',
+      name: 'Import file yêu cầu',
+      code: 'menu.import-excelDR-management',
       iconClass: 'sidebar-menu-icon icon__catalog',
-      urlRewrite: 'catalog-management/offer',
+      urlRewrite: 'catalog-management/excelDR',
       subChild: [],
     })
 

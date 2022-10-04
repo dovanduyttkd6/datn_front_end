@@ -21,13 +21,12 @@ import {FileManagerService} from "../../../../services/file-manager/file-manager
 import { interval, Subscription } from 'rxjs';
 import { RequestService } from 'src/app/services/request-management/request.service';
 
-
 @Component({
-  selector: 'app-list-request',
-  templateUrl: './list-request.component.html',
-  styleUrls: ['./list-request.component.less']
+  selector: 'app-list-user',
+  templateUrl: './list-user.component.html',
+  styleUrls: ['./list-user.component.less']
 })
-export class ListRequestComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class ListUserComponent implements OnInit {
   searchForm: any;
   breadcrumbs: any = [];
   isBreadcrumb = false;
@@ -49,6 +48,45 @@ export class ListRequestComponent implements OnInit, AfterViewInit, AfterViewChe
   @Input() isChecked = false;
   @Input() isCheckedAll = false;
 
+  dataFake = [
+    {
+      id: 1,
+      maNv: "NV01",
+      userName: "admin",
+      passWord: "admin",
+      email: "hoang@gmail.com",
+      name: "hoang",
+      role: 2
+    },
+    {
+      id: 2,
+      maNv: "NV01",
+      userName: "admin",
+      passWord: "admin",
+      email: "hoang@gmail.com",
+      name: "hoang",
+      role: 2
+    },
+    {
+      id: 3,
+      maNv: "NV01",
+      userName: "admin",
+      passWord: "admin",
+      email: "hoang@gmail.com",
+      name: "hoang",
+      role: 2
+    },
+    {
+      id: 4,
+      maNv: "NV01",
+      userName: "admin",
+      passWord: "admin",
+      email: "hoang@gmail.com",
+      name: "hoang",
+      role: 2
+    }
+  ]
+
   constructor(public translateService: TranslateService,
               injector: Injector,
               private router: Router,
@@ -65,19 +103,21 @@ export class ListRequestComponent implements OnInit, AfterViewInit, AfterViewChe
     this.setBreadcrumb();
     this.buildForm();
     console.log(this.router.getCurrentNavigation() ? this.router.getCurrentNavigation().extras.state.request : "1");
-    this.nzOnSearch(null);
+    this.lstData = this.dataFake;
+    this.total = this.dataFake.length;
+    // this.nzOnSearch(null);
     // this.refreshPage = interval(30000).subscribe(
     //   (val) => { this.refreshListVM() }
     // );
   }
 
-  ngAfterViewInit() {
-    this.codeRef.focus();
-  }
+  // ngAfterViewInit() {
+  //   this.codeRef.focus();
+  // }
 
-  ngAfterViewChecked() {
-    this.changeDetectorRef.detectChanges();
-  }
+  // ngAfterViewChecked() {
+  //   this.changeDetectorRef.detectChanges();
+  // }
 
   setBreadcrumb() {
     this.breadcrumbs = [
@@ -86,8 +126,8 @@ export class ListRequestComponent implements OnInit, AfterViewInit, AfterViewChe
         route: '',
       },
       {
-        name: this.translateService.instant('breadcrumb.request-management'),
-        route: '/catalog-management/request',
+        name: this.translateService.instant('breadcrumb.user-management'),
+        route: '/catalog-management/user',
       },
     ];
     this.isBreadcrumb = true;
@@ -100,23 +140,23 @@ export class ListRequestComponent implements OnInit, AfterViewInit, AfterViewChe
   }
 
   fetchRequest() {
-    this.requestService.search(this.searchForm.value, this.request).subscribe(res => {
-      console.log(res);
-      this.lstData = res.data.content;
-      this.total = res.data.totalElements;
-    })
+    // this.requestService.search(this.searchForm.value, this.request).subscribe(res => {
+    //   console.log(res);
+    //   this.lstData = res.data.content;
+    //   this.total = res.data.totalElements;
+    // })
   }
 
   buildForm() {
     this.searchForm = this.formBuilder.group({
-      code: new FormControl(null),
-      title: new FormControl(null),
-      nameNvYc: new FormControl(null),
+      maNv: new FormControl(null),
+      userName: new FormControl(null),
+      email: new FormControl(null),
     });
   }
 
   onCreate() {
-    this.router.navigate(['/catalog-management/request/add'])
+    this.router.navigate(['/catalog-management/user/add'])
   }
 
 
@@ -136,37 +176,37 @@ export class ListRequestComponent implements OnInit, AfterViewInit, AfterViewChe
   // }
 
   goToEdit(data: any) {
-    this.router.navigate(['/catalog-management/request/detail/' + data.code], {state: {page: this.request}});
+    this.router.navigate(['/catalog-management/user/detail/' + data.id], {state: {page: this.request}});
   }
 
   openModalDelete(data: any) {
-    this.isVisibleModalDelete = true;
-    this.selectedCode = data.code;
-    this.selectedName = data.title;
-    this.selectedId = data.id;
+    // this.isVisibleModalDelete = true;
+    // this.selectedCode = data.code;
+    // this.selectedName = data.title;
+    // this.selectedId = data.id;
   }
 
   callBackModalDelete(event: any) {
-    this.requestService.delete(this.selectedId).subscribe(res => {
-      console.log(res);
-      if (res.data != "1") {
-        this.toastService.openErrorToast(this.translateService.instant('catalog-management.request.delete.error', {
-          code: this.selectedCode,
-          srCode: res.data
-        }), null);
-        this.isVisibleModalDelete = false;
-      } else {
-        this.toastService.openSuccessToast(this.translateService.instant('catalog-management.request.delete.success'), null);
-        this.isVisibleModalDelete = false;
-        if (this.lstData.length == 1) {
-          this.request.page = this.request.page > 0 ? this.request.page - 1 : 0;
-        }
-        this.fetchRequest();
-      }
-    })
+    // this.requestService.delete(this.selectedId).subscribe(res => {
+    //   console.log(res);
+    //   if (res.data != "1") {
+    //     this.toastService.openErrorToast(this.translateService.instant('catalog-management.request.delete.error', {
+    //       code: this.selectedCode,
+    //       srCode: res.data
+    //     }), null);
+    //     this.isVisibleModalDelete = false;
+    //   } else {
+    //     this.toastService.openSuccessToast(this.translateService.instant('catalog-management.request.delete.success'), null);
+    //     this.isVisibleModalDelete = false;
+    //     if (this.lstData.length == 1) {
+    //       this.request.page = this.request.page > 0 ? this.request.page - 1 : 0;
+    //     }
+    //     this.fetchRequest();
+    //   }
+    // })
   }
 
   onCancelModalDelete() {
-    this.isVisibleModalDelete = false;
+    // this.isVisibleModalDelete = false;
   }
 }

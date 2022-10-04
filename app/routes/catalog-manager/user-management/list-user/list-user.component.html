@@ -11,13 +11,13 @@
                     <form nz-form [formGroup]="searchForm">
                         <div class="alt-row__container">
                             <div class="alt-row__item">
-                                <app-input-text #codeRef formControlName="tenKhoanTien" placeHolder="Tên khoản tiền" labelContent="{{ 'Tên khoản tiền' | i18n }}"></app-input-text>
+                                <app-input-text #codeRef formControlName="maNv" placeHolder="Mã nhân viên" labelContent="{{ 'Mã nhân viên' | i18n }}"></app-input-text>
                             </div>
                             <div class="alt-row__item">
-                              <app-input-text formControlName="maDx" placeHolder="Mã đề xuất" labelContent="{{ 'Mã đề xuất' | i18n }}"></app-input-text>
+                                <app-input-text formControlName="userName" placeHolder="Username" labelContent="{{ 'Username' | i18n }}"></app-input-text>
                             </div>
                             <div class="alt-row__item">
-                              <app-input-text formControlName="email" placeHolder="Email đề xuất" labelContent="{{ 'Email đề xuất' | i18n }}"></app-input-text>
+                                <app-input-text formControlName="email" placeHolder="Email nhân viên" labelContent="{{ 'Email nhân viên' | i18n }}"></app-input-text>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center btn-search__container">
@@ -55,22 +55,22 @@
                                 {{ 'list.table.stt' | i18n }}
                             </th>
                             <th nzWidth="150px">
-                                {{ 'Mã đề xuất' | i18n }}
+                                {{ 'Mã nhân viên' | i18n }}
                             </th>
                             <th nzWidth="150px">
-                                {{ 'Tên đề xuất' | i18n }}
+                                {{ 'Tên nhân viên' | i18n }}
                             </th>
                             <th nzWidth="150px">
-                                {{ 'Số tiền' | i18n }}
+                                {{ 'Username' | i18n }}
                             </th>
                             <th nzWidth="150px">
-                                {{ 'Loại khoản tiền' | i18n }}
+                                {{ 'Password' | i18n }}
                             </th>
                             <th nzWidth="150px">
-                              {{ 'Thời gian' | i18n }}
+                              {{ 'Email' | i18n }}
                             </th>
                             <th nzWidth="150px">
-                              {{ 'Trạng thái' | i18n }}
+                              {{ 'Role' | i18n }}
                             </th>
                             <th nzWidth="100px">
                                 {{ 'common.list.table.hanh-dong' | i18n }}
@@ -81,31 +81,18 @@
                         <tr *ngFor="let data of lstData; let idx = index">
                             <td class="text-center">{{(request.page * request.size) + idx + 1}}</td>
 
-                            <td [nz-tooltip]="data.maDx" class="max-width-200 q-status">{{data.maDx}}</td>
-                            <td [nz-tooltip]="data.tenKhoanTien" class="max-width-200 q-status q-name">{{data.tenKhoanTien}}</td>
-                            <td [nz-tooltip]="data.soTien" class="max-width-200 q-status">{{data.soTien}}</td>
-                            <td *ngIf="data.type == 'thu'" class="max-width-200 q-status q-success">{{data.type}}</td>
-                            <td *ngIf="data.type == 'chi'" class="max-width-200 q-status q-failed">{{data.type}}</td>
-                            <td [nz-tooltip]="data.thoiGian" class="max-width-200 q-status">{{data.thoiGian}}</td>
-                            <td *ngIf="data.status == 2" class="max-width-200 q-status q-failed">{{'Không chấp nhận' | i18n}}</td>
-                            <td *ngIf="data.status == 1" class="max-width-200 q-status q-success">{{'Đã chấp nhận' | i18n}}</td>
-                            <td *ngIf="data.status == 0" class="max-width-200 q-status q-new">{{'Chờ xử lý' | i18n}}</td>
-                            <td class="q-status" *ngIf="data.status == 2 ||data.status == 1 ; then trueBlock ; else falseBlock" ></td>
-                            <ng-template #trueBlock>
-                              <td class="max-width-200 q-status">
-                                <app-button-icon class="action__margin" [disabled]="true" [isTrue]="true" [tooltipTitle]="'Chấp nhận'"></app-button-icon>
-                                <app-button-icon class="action__margin" [disabled]="true" [isDelete]="true" [tooltipTitle]="'Không chấp nhận'"></app-button-icon>
-                              </td>
-                            </ng-template>
-                            <ng-template #falseBlock>
-                              <td class="max-width-200 q-status">
-                                <app-button-icon class="action__margin" [isTrue]="true" [tooltipTitle]="'Chấp nhận'" (click)="handleAccept(data.id)"></app-button-icon>
-                                <app-button-icon class="action__margin" [isFalse]="true" [tooltipTitle]="'Không chấp nhận'" (click)="handleUnAccept(data.id)"></app-button-icon>
-                              </td>
-                            </ng-template>
+                            <td [nz-tooltip]="data.maNv" class="max-width-200 q-status q-new">{{data.maNv}}</td>
+                            <td [nz-tooltip]="data.name" class="max-width-200 q-status">{{data.name}}</td>
+                            <td [nz-tooltip]="data.userName" class="max-width-200 q-status">{{data.userName}}</td>
+                            <td [nz-tooltip]="data.passWord" class="max-width-200 q-status">******</td>
+                            <td [nz-tooltip]="data.email" class="max-width-200 q-status q-new">{{data.email}}</td>
+                            <td [nz-tooltip]="data.role" class="max-width-200 q-status">{{data.role}}</td>
+                            <td class="q-status">
+                                <app-button-icon class="action__margin" [isEdit]="true" [tooltipTitle]="'Cập nhật'" (click)="goToEdit(data)"></app-button-icon>
+                                <app-button-icon [isDelete]="true" [tooltipTitle]="'Xóa'" (click)="openModalDelete(data)"></app-button-icon>
+                            </td>
                         </tr>
                     </tbody>
-
                 </nz-table>
                 <div nz-row class="list__pagination justify-content-start" *ngIf="total > 0">
                     <div nz-col [nzSpan]="12">

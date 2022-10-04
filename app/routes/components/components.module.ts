@@ -155,7 +155,8 @@ import { ButtonRunComponent } from './buttons/button-run/button-run.component';
     ButtonUploadComponent,
     NoResultComponent,
     ButtonSortComponent,
-    ButtonRunComponent
+    ButtonRunComponent,
+    SvgFolderComponent
   ],
 })
 export class ComponentsModule {

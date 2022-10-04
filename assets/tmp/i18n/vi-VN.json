@@ -33,6 +33,7 @@
     "layout.btn.cancel": "Hủy bỏ",
     "layout.btn.cancel2": "Hủy",
     "layout.btn.search": "Tìm kiếm",
+    "layout.btn.validate": "Validate",
     "layout.btn.runAll": "Tạo server",
     "layout.btn.import": "Nhập",
     "layout.btn.upload": "Tải lên",
@@ -142,16 +143,20 @@
     "menu.dashboard": "Dashboard",
     "menu.thu-chi-management": "Quản lý thu chi",
     "menu.request-management": "Quản lý yêu cầu",
-    "menu.import-excel-management": "Import đề xuất",
+    "menu.import-excel-management": "Import file đề xuất",
     "breadcrumb.request-management": "Quản lý yêu cầu",
     "breadcrumb.excel-management": "Import đề xuất",
     "breadcrumb.excel-management.add": "Thêm file",
     "breadcrumb.detail-request-management": "Chi tiết yêu cầu",
+    "breadcrumb.user-management": "Quản lý tài khoản",
 
     "catalog-management.request.delete.error": "Xóa yêu cầu thất bại",
     "catalog-management.request.delete.success": "Xóa yêu cầu thành công",
     "catalog-management.request.function": "Mã yêu cầu ",
     "menu.offer-management": "Quản lý đề xuất",
     "breadcrumb.offer-management": "Quản lý đề xuất",
-    "menu.user-management": "Quản lý tài khoản"
+    "menu.user-management": "Quản lý tài khoản",
+
+    "breadcrumb.excelDR-management": "Import yêu cầu",
+    "menu.import-excelDR-management": "Import file yêu cầu"
 }

@@ -51,9 +51,6 @@
                 <nz-table #rowSelectionTable nzBordered [nzData]="lstData" [nzFrontPagination]="false" [nzScroll]="{ x: SCROLL_TABLE.SCROLL_X}" [nzNoResult]="">
                     <thead>
                         <tr class="ant-header-customize">
-                            <th nzWidth="25px" class="text-center">
-                                <input id="test" #inputEl type="checkbox" (change)="checkedAll(inputEl.checked)" nz-tooltip="Chọn tất cả" [(ngModel)]="checkedChooseAll"/>
-                            </th>
                             <th nzWidth="50px" class="text-center">
                                 {{ 'list.table.stt' | i18n }}
                             </th>
@@ -70,8 +67,11 @@
                                 {{ 'Thời gian' | i18n }}
                             </th>
                             <th nzWidth="150px">
+                              {{ 'Kết quả' | i18n }}
+                            </th>
+                            <th nzWidth="150px">
                               {{ 'Trạng thái' | i18n }}
-                          </th>
+                            </th>
                             <th nzWidth="100px">
                                 {{ 'common.list.table.hanh-dong' | i18n }}
                             </th>
@@ -79,29 +79,17 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of lstData; let idx = index">
-                          <td class="text-center" *ngIf="listVM.includes(data.id); then ifBlock else elseblock">
-
-                          </td>
-                            <ng-template #ifBlock>
-                              <td class="text-center">
-                                <input #inputEl type="checkbox" (change)="onChangeChecked(inputEl.checked, data)" checked>
-                              </td>
-                            </ng-template>
-                            <ng-template  #elseblock>
-                              <td class="text-center">
-                                <input #inputEl type="checkbox" (change)="onChangeChecked(inputEl.checked, data)">
-                              </td>
-                            </ng-template>
                             <td class="text-center">{{(request.page * request.size) + idx + 1}}</td>
 
-                            <td [nz-tooltip]="data.code" class="max-width-200">{{data.code}}</td>
-                            <td [nz-tooltip]="data.title" class="max-width-200">{{data.title}}</td>
-                            <td [nz-tooltip]="data.emailNvYc" class="max-width-200">{{data.emailNvYc}}</td>
-                            <td [nz-tooltip]="data.timeSendYc" class="max-width-200">{{data.timeSendYc}}</td>
+                            <td [nz-tooltip]="data.code" class="max-width-200 q-status">{{data.code}}</td>
+                            <td [nz-tooltip]="data.title" class="max-width-200 q-new q-status">{{data.title}}</td>
+                            <td [nz-tooltip]="data.emailNvYc" class="max-width-200 q-status">{{data.emailNvYc}}</td>
+                            <td [nz-tooltip]="data.timeSendYc" class="max-width-200 q-status">{{data.timeSendYc}}</td>
+                            <td [nz-tooltip]="data.passFailed" class="max-width-200 q-status">{{data.passFailed}}</td>
                             <td *ngIf="data.status == 2" class="max-width-200 q-status q-failed">{{'Không hợp lệ' | i18n}}</td>
                             <td *ngIf="data.status == 1" class="max-width-200 q-status q-success">{{'Hợp lệ' | i18n}}</td>
                             <td *ngIf="data.status == 0" class="max-width-200 q-status q-new">{{'Mới' | i18n}}</td>
-                            <td>
+                            <td class="q-status">
                                 <app-button-icon class="action__margin" [isEdit]="true" [tooltipTitle]="'Chi tiết'" (click)="goToEdit(data)"></app-button-icon>
                                 <app-button-icon [isDelete]="true" [tooltipTitle]="'Xóa yêu cầu'" (click)="openModalDelete(data)"></app-button-icon>
                             </td>

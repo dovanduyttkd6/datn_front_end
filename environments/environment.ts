@@ -23,7 +23,7 @@ export const environment = {
     colorWeak: false,
   },
   BASE_API_URI: {
-    BASE_SERVICE_API: 'http://localhost:8013',
+    BASE_SERVICE_API: 'http://localhost:8012',
     CLIENT_ADDRESS: 'http://localhost:8111',
     SSO_ADDRESS: 'https://10.0.4.20:8225/sso',
   },

@@ -45,6 +45,7 @@ export class OfferManagementComponent implements OnInit {
   selectedId: any;
   timeRefresh: string = "";
   check : boolean = true;
+  isSuperAdmin : boolean = false;
   @Input() isChecked = false;
   @Input() isCheckedAll = false;
 
@@ -61,13 +62,27 @@ export class OfferManagementComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setBreadcrumb();
-    this.buildForm();
-    console.log(this.router.getCurrentNavigation() ? this.router.getCurrentNavigation().extras.state.request : "1");
-    this.nzOnSearch(null);
-    // this.refreshPage = interval(30000).subscribe(
-    //   (val) => { this.refreshListVM() }
-    // );
+    this.isSuperAdmin = false;
+    if(!this.isSuperAdmin) {
+      this.setBreadcrumb();
+      this.buildForm();
+      console.log(this.router.getCurrentNavigation() ? this.router.getCurrentNavigation().extras.state.request : "1");
+      this.searchForm.value = {
+        email: "ngoc@gmail.com",
+        maDx: null,
+        tenKhoanTien: null
+      }
+      this.nzOnSearch(null);
+    } else {
+      this.setBreadcrumb();
+      this.buildForm();
+      console.log(this.router.getCurrentNavigation() ? this.router.getCurrentNavigation().extras.state.request : "1");
+      this.nzOnSearch(null);
+    }
+    // this.setBreadcrumb();
+    // this.buildForm();
+    // console.log(this.router.getCurrentNavigation() ? this.router.getCurrentNavigation().extras.state.request : "1");
+    // this.nzOnSearch(null);
   }
 
   ngAfterViewInit() {
@@ -116,6 +131,7 @@ export class OfferManagementComponent implements OnInit {
   // }
 
   fetchRequest() {
+    console.log(this.searchForm.value);
     this.offerService.search(this.searchForm.value, this.request).subscribe(res => {
       console.log(res);
       this.lstData = res.data.content;

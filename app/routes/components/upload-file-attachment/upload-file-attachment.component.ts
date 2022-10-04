@@ -75,6 +75,7 @@ export class UploadFileAttachmentComponent implements OnInit {
         lstNewFile.push(e.target.files[0]);
       }
     }
+    console.log(lstNewFile);
     this.fileManagerService.uploadMultipleFile(lstNewFile,this.type).subscribe(res => {
       this.listFiles = res.data;
       this.listFiles = [...this.listFiles];

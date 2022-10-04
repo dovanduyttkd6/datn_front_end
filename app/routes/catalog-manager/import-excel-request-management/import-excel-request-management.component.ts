@@ -6,11 +6,12 @@ import { FileManagerService } from 'src/app/services/file-manager/file-manager.s
 import { ToastService } from '@shared';
 
 @Component({
-  selector: 'app-import-excel-management',
-  templateUrl: './import-excel-management.component.html',
-  styleUrls: ['./import-excel-management.component.less']
+  selector: 'app-import-excel-request-management',
+  templateUrl: './import-excel-request-management.component.html',
+  styleUrls: ['./import-excel-request-management.component.less']
 })
-export class ImportExcelManagementComponent implements OnInit {
+export class ImportExcelRequestManagementComponent implements OnInit {
+
   isBreadcrumb: any = false;
   breadcrumbs: any = [];
   isEdit: any;
@@ -42,8 +43,8 @@ export class ImportExcelManagementComponent implements OnInit {
         route: '',
       },
       {
-        name: this.translateService.instant('breadcrumb.excel-management'),
-        route: '/catalog-management/excel',
+        name: this.translateService.instant('breadcrumb.excelDR-management'),
+        route: '/catalog-management/excelDR',
       },
       {
         name: this.translateService.instant(!this.isEdit ? 'breadcrumb.excel-management.add' : 'breadcrumb.excel-management.edit'),
@@ -74,14 +75,14 @@ export class ImportExcelManagementComponent implements OnInit {
   }
 
   submitForm() {
-    this.fileManagerService.uploadMultipleFile(this.lstNewFile, 1).subscribe(res => {
+    this.fileManagerService.uploadFileDR(this.lstNewFile, 1).subscribe(res => {
       console.log(res);
       if(res.message === "Cập nhật thành công!"){
-        this.toastService.openSuccessToast('Import file đề xuất thành công!');
+        this.toastService.openSuccessToast('Import file yêu cầu thành công!');
       } else {
-        this.toastService.openErrorToast('Import file đề xuất thất bại!');
+        this.toastService.openErrorToast('Import file yêu cầu thất bại!');
       }
-      this.router.navigate(["/catalog-management/offer"]);
+      this.router.navigate(["/catalog-management/request"]);
     });
   }
 
@@ -117,4 +118,5 @@ export class ImportExcelManagementComponent implements OnInit {
       console.error(ex.message);
     }
   }
+
 }
